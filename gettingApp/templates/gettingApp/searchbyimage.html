@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load  settiing_filter %}
+{% block title %} recherche par image {% endblock %}
+{% block active_link %}search{% endblock %}
+{% block additonalStyle %}
+    <link rel="stylesheet" href="{% static 'gettingApp/gettingAppmain.css' %}" type="text/css">
+    <link href="{% static 'settingApp/settingAppMain.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content_page %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-5"></div>
+                <h3 class="h5 text-center text-secondary text-uppercase">Recherche par reconnaissance facial</h3>
+                <p>La reconnaissance faciale est un moyen d'identifier ou de confirmer l'identité d'un individu grâce à son visage. Les systèmes de reconnaissance faciale peuvent servir à l'identification de personnes sur des photos, dans des vidéos ou en temps réel.
+                dans notre cas nous allons effectuer une recherche à l'aide d'une photo</p>
+                <p style="padding: 20px 10px; background-color: #fab460; color: black"><i class="fas fa-fw fa-file"></i> A noter que le système n'a qu'une precision de 98% en fonction de la lumier sur la photo
+                l'expression faciale et la qualité de la photo</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ### .preview-image-container | START ### -->
+    <div class="container preview-image-container">
+        <div class="">
+            {% if profiles %}
+                <div class="card">
+                    <div class="card-header">
+                                            <h6
+                        class = "m-0 font-weight-bold text-primary"> Reconnaissance faciale effectuée
+                        </h6>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="d-flex w-50 flex-column align-content-between">
+                            <h6 class="m-0 mb-3 text-dark"> image téléversée : </h6>
+                            <img style="width: 100%; border-radius: 7px; box-shadow: black 0 0 2px" src="{{ photocomp }}" alt="test image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">{{ profiles|comp }} coorespondace trouvé</h6>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                <div class="chart-area">
+                <ul class="screen_container">
+                {%  for crime in profiles %}
+                    <li>
+                        <a class="item_screnn" href="{{ crime.get_absolute_url }}">
+                            <img class="img-circle" src="{{ crime.photo.url }}" alt="{{ crime.name }}">
+                            <div class="info_container">
+                                <div class="info1">
+                                    <div class="span">
+                                        <span>{{ crime.name }}</span>
+                                        <span>{{ crime.postnom }}</span>
+                                    </div>
+                                    <div class="date_container">
+                                        <span class="font-weight-bold text-danger">match à {{ matchpercent }}%</span>
+                                    </div>
+                                </div>
+
+                                <div class="info_more">
+                                    {{ crime|get_last_crime }}
+                                </div>
+                            </div>
+
+                        </a>
+                    </li>
+                {% endfor %}
+               </ul>
+              </div>
+              <div class="card-footer mb-5 d-flex justify-content-center"> <a href="{% url 'gettingApp:gettingApp_seacrchbyImage' %}"> Effectuer une autre recherche </a> </div>
+              </div>
+            {% else %}
+                    <div class="card mb-4 {{ nomatch }}">
+                    <div class="card-header">
+                                            <h6
+                        class = "m-0 font-weight-bold text-primary"> Reconnaissance faciale effectuée
+                        </h6>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="d-flex w-50 flex-column align-content-between">
+                            <h6 class="m-0 mb-3 text-dark"> image téléversée : </h6>
+                            <img style="width: 100%; border-radius: 7px; box-shadow: black 0 0 2px" src="{{ photocomp }}" alt="test image">
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center align-items-center">
+                        <h6 class="m-0 text-danger">
+                            ce visage n'a pas d'entecedant criminel
+                        </h6>
+                    </div>
+                    </div>
+
+                <div>
+                    <div class="mt-5"></div>
+                    <h3 class="h5 mb-2 pb-1">televerser une images ici</h3>
+                    <p class="">selectionner une photo au format : PNG, JPEG, JPG. taille max : 5mb.(une meilleure qualité de photo augmenter la precision du model)</p>
+
+                    <!-- invalid message -->
+                    <div class="invalid-feedback invalidFileSize" style="display:none;">La taille maximum est de 5 Mb. Veuillez réduire la taille du fichier ou modifier le nouveau fichier.</div>
+                    <div class="invalid-feedback invalidFileType" style="display:none;">Seuls les types de fichiers PNG, JPEG et JPG sont acceptables. Veuillez choisir le nouveau type de fichier.</div>
+                    <div class="invalid-feedback maxFile" style="display:none;"></div>
+
+
+                    <!-- Drag and drop file upload -->
+                    <form  enctype="multipart/form-data" method="post" action="{% url 'gettingApp:gettingApp_seacrchbyImage' %}" class="file-drop-area">
+                        {% csrf_token %}
+                        <div class="file-drop-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                        <span class="file-drop-message">Drag and drop here to upload</span>
+                        {{ imageForm.image }}
+                        <button type="button" class="file-drop-btn btn btn-primary btn-sm">ou choisir un fichier</button>
+                        <div class="btn_container">
+                            <button type="submit" class="btn btn-custom submit-button"><i class="fas fa-search fa-fw"> </i>Rechercher</button>
+                        </div>
+                    </form>
+
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% if errorForm %}
+        <div
+            style="padding: 20px; background-color: red; color: white"
+        >
+        {{ errorForm }}
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block script %}
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.js'%}"></script>
+    <script src="{% static 'gettingApp/gettingAppmain.js'%}"></script>
+{% endblock %}

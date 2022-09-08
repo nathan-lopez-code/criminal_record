@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} apropos des auteurs {% endblock %}
+{% block active_link %}me{% endblock %}
+{% block content_page %}
+<p class="d-flex justify-content-center align-items-center">
+    ce travail a été presenter et réaliser par
+</p>
+    
+<div class="container d-flex ">
+    <div class="w-50 d-flex flex-row nowrap card m-1 pb-1 pt-1 pl-2 pr-2">
+        <img width="45%" src="{% static 'img/svg/undraw_profile_2.svg' %}" alt="pas imge">
+        <div class="d-flex flex-column justify-content-center ml-4 ">
+            <h5 style="color: #1c294e;text-transform: uppercase"> jhon doe </h5>
+            <p class="mb-1"> L2 management et système informatique </p>
+            <p style="text-align: end"> matricule </p>
+        </div>
+    </div>
+    <div class="w-50 d-flex flex-row nowrap card m-1 pb-1 pt-1 pl-2 pr-2">
+        <img width="45%" src="{% static 'img/svg/undraw_profile_3.svg' %}" alt="pas imge">
+        <div class="d-flex flex-column justify-content-center ml-4 ">
+            <h5 style="color: #1c294e; text-align: start; text-transform: uppercase"> jhon doe </h5>
+            <p class="mb-1"> L2 management et système informatique </p>
+            <p style="text-align: end"> matricule </p>
+        </div>
+    </div>
+</div>    
+    
+    
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load settiing_filter %}
+{% block title %} affichage de tout les casiers {% endblock %}
+{% block additonalStyle %}
+    <link href="{% static 'settingApp/settingAppMain.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block active_link %}affiche{% endblock %}
+
+
+{% block content_page %}
+<!-- Page Heading -->
+<div class="row">
+<div class="col-lg">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Choisisser un casier pour pouvoir le telecharger</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-filter fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header">filter les resultat</div>
+                    <a class="dropdown-item" href="#">par nom</a>
+                    <a class="dropdown-item" href="#">par date</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item active" href="#">afficer tout</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+                <ul class="screen_container">
+                {% for crime in crimes %}
+                    <li>
+                        <a class="item_screnn" href="{% url 'settingApp:downloadfile' crime.id %}">
+                            <img class="img-circle" src="{{ crime.photo.url }}" alt="{{ crime.name }}">
+                            <div class="info_container">
+                                <div class="info1">
+                                    <div class="span">
+                                        <span>{{ crime.name }}</span>
+                                        <span>{{ crime.postnom }}</span>
+                                    </div>
+                                    <div class="date_container">
+                                        <span>30 juin 2021</span>
+                                    </div>
+                                </div>
+
+                                <div class="info_more">
+                                    {{ crime|get_last_crime }}
+                                </div>
+                            </div>
+
+                        </a>
+                    </li>
+
+
+                {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.js'%}"></script>
+{% endblock %}

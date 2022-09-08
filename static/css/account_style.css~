@@ -1,0 +1,108 @@
+
+@font-face {
+	font-family: "srcpro";
+	src: url("../font/srcpro.ttf");
+}
+
+body {
+    color: white;
+    font-family: 'Ruda', sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size:13px;
+}
+
+ul li {
+    list-style: none;
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.form-login {
+	max-width: 330px;
+	margin: 100px auto 0;
+	background: rgba(40, 81, 106, 0.63);
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.form-login h2.form-login-heading {
+	margin: 0;
+	padding: 25px 20px;
+	text-align: center;
+	background: #4ecdc4;
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+.login-wrap {
+	padding: 20px;
+}
+
+.container_form_control{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+}
+
+.container_form_control span{
+    font-weight: bold;
+    font-family: srcpro;
+
+}
+
+.container_form_control input{
+    margin-left: auto;
+    width: 70%;
+    color: white;
+    background: rgba(3, 24, 53, 0.51);
+    border-radius: 0 8px 8px 0;
+
+}
+
+.btn-custom{
+    width: 100%;
+    background-color: #1c294e;
+    padding: 7px 7px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 10px;
+    box-shadow: black 0 0 3px;
+
+}
+
+
+
+.btn-custom:hover{
+    box-shadow: black 0 0 7px;
+}
+
+.form-login .error-class{
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.55) 20%, red, red , rgba(255, 0, 0, 0.62) 80%);
+}
+
+.bottom_info{
+    margin-top: 25%;
+    text-align: center;
+    font-weight: bold;
+}
+

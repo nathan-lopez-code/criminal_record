@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ profile.name }} _ {{ profile.postnom }}  {% endblock %}
+{% block active_link %}search{% endblock %}
+{% block content_page %}
+<!-- Page Heading -->
+<div class="">
+    <div class="card shadow ">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Detail sur <span style="color: black; text-transform: capitalize">{{ profile.name }}</span></h6>
+        </div>
+        <div class="card-body" >
+            <div class="d-flex justify-content-center">
+                <img style="border-radius: 20%; max-height: 150px"
+                    src="{{ profile.photo.url }}" alt="{{ name }}">
+                <div style="margin-left: 40px">
+                    <ul style="list-style: none">
+                        <li class="d-flex">nom : <span class="font-weight-bold ml-1"> {{ profile.name }}</span></li>
+                        <li class="d-flex">postom : <span class="font-weight-bold ml-1"> {{ profile.postnom }}</span></li>
+                        <li class="d-flex">prenon : <span class="font-weight-bold ml-1"> {{ profile.prenom }}</span></li>
+                        <li class="d-flex">lieu de naiassance : <span class="font-weight-bold ml-1"> {{ profile.lieu }}</span></li>
+                        <li class="d-flex">date de naissance : <span class="font-weight-bold ml-1"> {{ profile.date }}</span></li>
+                        <hr>
+                        <li class="d-flex">nom du père <span class="font-weight-bold ml-1"> {{ profile.nom_pere }}</span></li>
+                        <li class="d-flex">nom de la mère <span class="font-weight-bold ml-1"> {{ profile.nom_mere }}</span></li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <br>
+
+            {% if crimes %}
+                <style>
+
+                    table{
+                        clear: top;
+                        margin-top: 50px;
+                        padding: 0 5px ;
+
+                    }
+                    table thead th, table td{
+                        width: 16.6%;
+                        font-weight: normal;
+                        font-size: .9em;
+                        text-align: center;
+                    }
+                    table thead th{
+                        background: #1c294e;
+                        color: white;
+                    }
+
+                    table td{
+                        border: #1c294e 1px solid;
+                        font-size: .8em;
+                        padding: 0 5px;
+                    }
+
+                </style>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>date de condamnations</th>
+                            <th>cours ou Tribunaux</th>
+                            <th>Nature des crimes ou délits</th>
+                            <th>Dates des crimes ou délits</th>
+                            <th>Nature et durée des peines</th>
+                            <th>OBSERVATIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for crime in crimes %}
+                        <tr>
+                            <td>{{ crime.dateCondamnation }}</td>
+                            <td>{{ crime.organeCondamnatoire }}</td>
+                            <td>{{ crime.NatureCrime }} <hr> {{ crime.descriptionCrime }}</td>
+                            <td>{{ crime.dateCrime}}</td>
+                            <td>{{ crime.naturePeine }} <hr> {{ crime.durePeine }} mois</td>
+                            <td>{{ crime.observation }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+             {% else %}
+                pas de crime
+            {% endif %}
+
+        </div>
+        <div class="card-footer">
+           <a href="{% url 'settingApp:downloadfile' profile.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Telecharger un extrait du casierr</a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.js'%}"></script>
+{% endblock %}
